@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300..700&display=swap");
+
+@font-face{
+  font-family:"GL Bader Compress";
+  src:url("../assets/font/GL-Bader-Compress-Black.ttf") format("ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@import "tailwindcss";
+
+/* ===============================
+   THEME 
+   =============================== */
+
+@theme inline {
+  --color-bg: var(--clr-bg);
+  --color-text: var(--clr-black);
+  --color-description: var(--clr-gray);
+  --color-notif: var(--clr-purple);
+  --color-warning: var(--clr-amber);
+  --color-error: var(--clr-red);
+  --color-success: var(--clr-green);
+
+  /* Boutons */
+  --color-btn-primary-bg: var(--clr-black);
+  --color-btn-primary-fg: var(--clr-white);
+
+  --color-btn-secondary-bg: var(--clr-white);
+  --color-btn-secondary-fg: var(--clr-black);
+  --color-btn-secondary-st: var(--clr-black);
+
+  /* Typos */
+  --font-display:var(--font-gl-bader);
+  --font-body:var(--font-roboto);
+
+  /* Radius */
+  --radius-btn: var(--radius-30);
+
+}
+
+/* ===============================
+   PRIMITIVE TOKENS
+   =============================== */
+
+@layer base {
+  :root {
+    --clr-white: #ffffff;
+    --clr-black: #171717; /* noir utilisé pour titres/texte + btn primaire */
+    --clr-gray: #737373; /* gris pour descriptions */
+    --clr-purple: #5d2de6; /* notif */
+    --clr-green: #16a34a; /* success */
+    --clr-amber: #f59e0b; /* warning */
+    --clr-red: #dc2626; /* error */
+
+    --font-roboto: 'Roboto Condensed', sans-serif;
+    --font-gl-bader: 'GL Bader Compress', sans-serif;
+
+    --clr-bg: var(--clr-white);
+    
+    /* Radius en rem */
+    --radius-30: 1.875rem; /* 30px */
+    
+    /* Font sizes en rem */
+    --font-size-xs: 0.8125rem;  /* 13px */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-base: 0.9375rem; /* 15px */
+    --font-size-md: 1rem;        /* 16px */
+    --font-size-lg: 1.0625rem;   /* 17px */
+    --font-size-xl: 1.25rem;     /* 20px */
+    --font-size-2xl: 1.5rem;     /* 24px */
+    --font-size-3xl: 1.875rem;   /* 30px */
+    --font-size-4xl: 2.25rem;    /* 36px */
+    --font-size-5xl: 3rem;       /* 48px */
+    
+    /* Spacing en rem */
+    --spacing-xs: 0.1875rem;  /* 3px */
+    --spacing-sm: 0.25rem;    /* 4px */
+    --spacing-md: 0.625rem;   /* 10px */
+    --spacing-lg: 0.75rem;    /* 12px */
+    --spacing-xl: 1.25rem;    /* 20px */
+    
+    /* Icon sizes en rem */
+    --icon-xs: 1rem;      /* 16px */
+    --icon-sm: 1.25rem;   /* 20px */
+    --icon-md: 1.5rem;    /* 24px */
+    --icon-lg: 2rem;      /* 32px */
+    
+    /* Input height en rem */
+    --input-height: 2.75rem;  /* 44px */
+  }
+
+  .active { 
+    @apply border-[var(--color-black)];
+  }
+
+  .bullets {
+    @apply block overflow-hidden border-2 border-black;
+  }
+
+  .bullets-grey {
+    @apply block overflow-hidden border border-gray-200;
+  }
+
+  /* Classes pour validation de mot de passe */
+  .password-rule-valid {
+    color: var(--color-success);
+  }
+  
+  .password-rule-valid img {
+    filter: invert(45%) sepia(96%) saturate(445%) hue-rotate(75deg) brightness(96%) contrast(91%);
+  }
+
+  .password-rule-invalid {
+    color: var(--color-description);
+  }
+  
+  .password-rule-invalid img {
+    filter: invert(55%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%);
+  }
+
+  /* Classes pour les icônes d'œil (toggle password) */
+  .eye-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .eye-icon.hidden {
+    display: none;
+  }
+}
+
