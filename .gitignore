@@ -1,2 +1,5 @@
 # Ignorer le dossier node_modules du client
 node_modules/
+
+# Ignorer le dossier dist du client
+dist/
