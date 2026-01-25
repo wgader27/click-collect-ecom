@@ -17,7 +17,10 @@ import { SignUpPage } from "./pages/signup/page.js";
 import { SignInPage } from "./pages/signin/page.js";
 import { ProfilePage } from "./pages/profile/page.js";
 
-const router = new Router('app', { loginPath: '/signin' });
+const router = new Router('app', {
+  loginPath: '/signin',
+  basePath: import.meta.env.BASE_URL
+});
 
 window.router = router;
 const result = await AuthData.getCurrentUser();
