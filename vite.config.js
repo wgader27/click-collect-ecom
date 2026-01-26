@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
+import fs from 'fs';
 
 export default defineConfig({
   build: {
@@ -9,9 +10,13 @@ export default defineConfig({
     tailwindcss(),
     {
       name: 'html-transform',
+      enforce: 'pre',
       transform(code, id) {
         if (id.includes('.html')) {
-          console.log('[HTML-TRANSFORM] Processing:', id);
+          try {
+            fs.appendFileSync('build-log.txt', `[MATCHED] ${id}\n`);
+            // fs.appendFileSync('build-log.txt', `[CODE] ${code.substring(0, 50)}\n`); 
+          } catch (e) { }
 
           let replaced = code;
           replaced = replaced.replace(/src=["']\/assets\/([^"']+)["']/g, 'src="/click-collect-ecom/assets/$1"');
@@ -19,7 +24,9 @@ export default defineConfig({
           replaced = replaced.replace(/href=["']\/["']/g, 'href="/click-collect-ecom/"');
 
           if (code !== replaced) {
-            console.log('[HTML-TRANSFORM] Modified:', id);
+            try { fs.appendFileSync('build-log.txt', `[MODIFIED] ${id}\n`); } catch (e) { }
+          } else {
+            try { fs.appendFileSync('build-log.txt', `[NO CHANGE] ${id}\n`); } catch (e) { }
           }
           return replaced;
         }
