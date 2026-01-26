@@ -10,7 +10,7 @@ export default defineConfig({
     {
       name: 'html-transform',
       transform(code, id) {
-        if (id.endsWith('.html')) {
+        if (id.includes('.html')) { // Matches .html and .html?raw
           // Replace /assets/ with /click-collect-ecom/assets/ during build
           return code.replace(/src="\/assets\//g, 'src="/click-collect-ecom/assets/')
             .replace(/href="\/assets\//g, 'href="/click-collect-ecom/assets/')
