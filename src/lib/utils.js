@@ -8,10 +8,10 @@
  * @param {Object} data - An object containing key-value pairs where the key corresponds to the placeholder in the template.
  * @returns {string} - The rendered HTML string with placeholders replaced by data values.
  */
-let genericRenderer = function(template, data){
+let genericRenderer = function (template, data) {
     let html = template;
-    for(let key in data){
-        html = html.replaceAll("{{"+key+"}}", data[key]);
+    for (let key in data) {
+        html = html.replaceAll("{{" + key + "}}", data[key]);
     }
     return html;
 }
