@@ -115,10 +115,15 @@ class Router {
   navigate(path) {
     let fullPath = path;
     if (this.basePath !== '/') {
-      // Prepare path for pushState: ensure it includes basePath
-      // Remove leading slash from path if basePath already has trailing slash (it does per constructor)
-      const relativePath = path.startsWith('/') ? path.substring(1) : path;
-      fullPath = this.basePath + relativePath;
+      // Check if path already starts with basePath to avoid double prefixing
+      if (fullPath.startsWith(this.basePath)) {
+        // Path is already correct
+      } else {
+        // Prepare path for pushState: ensure it includes basePath
+        // Remove leading slash from path if basePath already has trailing slash (it does per constructor)
+        const relativePath = path.startsWith('/') ? path.substring(1) : path;
+        fullPath = this.basePath + relativePath;
+      }
     }
     window.history.pushState(null, null, fullPath);
     this.handleRoute();
