@@ -10,7 +10,7 @@
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[31.25rem] overflow-hidden bg-text">
     <img 
-      src="/assets/images/brands/hero.jpg" 
+      src="/click-collect-ecom/assets/images/brands/hero.jpg" 
       alt="Collection exclusive" 
       class="absolute inset-0 h-full w-full object-cover opacity-60"
     />
@@ -46,7 +46,7 @@
       <a href="/category/1" data-link class="group relative overflow-hidden">
         <figure class="aspect-[3/4] overflow-hidden bg-description/10">
           <img 
-            src="/assets/images/brands/category-vetement.jpg" 
+            src="/click-collect-ecom/assets/images/brands/category-vetement.jpg" 
             alt="Mode Femme" 
             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
@@ -62,7 +62,7 @@
       <a href="/category/2" data-link class="group relative overflow-hidden">
         <figure class="aspect-[3/4] overflow-hidden bg-description/10">
           <img 
-            src="/assets/images/brands/category-chaussure.jpg" 
+            src="/click-collect-ecom/assets/images/brands/category-chaussure.jpg" 
             alt="Mode Homme" 
             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
@@ -78,7 +78,7 @@
       <a href="/category/3" data-link class="group relative overflow-hidden">
         <figure class="aspect-[3/4] overflow-hidden bg-description/10">
           <img 
-            src="/assets/images/brands/category-accessoire.jpg" 
+            src="/click-collect-ecom/assets/images/brands/category-accessoire.jpg" 
             alt="Accessoires" 
             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
@@ -100,7 +100,7 @@
       <ul class="grid grid-cols-1 gap-8 md:grid-cols-3">
         <li class="text-center">
           <figure class="mb-4 flex justify-center">
-            <img src="/assets/images/icons/check-badge.svg" alt="" class="h-12 w-12" />
+            <img src="/click-collect-ecom/assets/images/icons/check-badge.svg" alt="" class="h-12 w-12" />
           </figure>
           <h3 class="mb-2 font-display text-lg">Click & Collect</h3>
           <p class="text-sm text-description">Commandez en ligne, retirez en boutique sous 2h</p>
@@ -108,7 +108,7 @@
 
         <li class="text-center">
           <figure class="mb-4 flex justify-center">
-            <img src="/assets/images/icons/gift.svg" alt="" class="h-12 w-12" />
+            <img src="/click-collect-ecom/assets/images/icons/gift.svg" alt="" class="h-12 w-12" />
           </figure>
           <h3 class="mb-2 font-display text-lg">Conseils personnalisés</h3>
           <p class="text-sm text-description">Notre équipe à votre écoute pour vous guider</p>
@@ -116,7 +116,7 @@
 
         <li class="text-center">
           <figure class="mb-4 flex justify-center">
-            <img src="/assets/images/icons/shield.svg" alt="" class="h-12 w-12" />
+            <img src="/click-collect-ecom/assets/images/icons/shield.svg" alt="" class="h-12 w-12" />
           </figure>
           <h3 class="mb-2 font-display text-lg">Qualité garantie</h3>
           <p class="text-sm text-description">Sélection rigoureuse de produits d'exception</p>
@@ -138,18 +138,18 @@
   </section>
 </main>
 
-`;let D="https://wwW.w-gader.mmi-limoges.fr/api-ecom/",A=async function(e){let t={method:"GET",credentials:"include"};try{var n=await fetch(D+e,t)}catch(a){return console.error("Echec de la requête : "+a),!1}return n.status!=200?(console.error("Erreur de requête : "+n.status),!1):await n.json()},se=async function(e,t){let n={credentials:"include",method:"POST",header:{"Content-Type":"multipart/form-data"},body:t};try{var s=await fetch(D+e,n)}catch(r){return console.error("Echec de la requête : "+r),!1}let a=await s.json();return s.status!=200&&console.error("Erreur de requête : "+s.status,a),a},ke=async function(e,t){let n={method:"POST",header:{"Content-Type":"application/json"},body:t};try{var s=await fetch(D+e,n)}catch(r){return console.error("Echec de la requête : "+r),!1}let a=await s.json();return s.status!=200&&console.error("Erreur de requête : "+s.status,a),a},ae=async function(e){let t={method:"DELETE",credentials:"include"};try{var n=await fetch(D+e,t)}catch(a){return console.error("Echec de la requête : "+a),!1}return n.status!=200?(console.error("Erreur de requête : "+n.status),!1):await n.json()},re=async function(e,t){let n={method:"PATCH",credentials:"include",headers:{"Content-Type":"application/json"},body:JSON.stringify(t)};try{var s=await fetch(D+e,n)}catch(r){return console.error("Echec de la requête : "+r),!1}let a=await s.json();return s.status!=200&&console.error("Erreur de requête : "+s.status,a),a},c={};c.login=async function(e){const t=await se("auth",JSON.stringify(e));return console.log("Login response:",t),t};c.signup=async function(e){const t=await ke("users",JSON.stringify(e));return console.log("Signup response:",t),t};c.getCurrentUser=async function(){return await A("auth")};c.logout=async function(){return await ae("auth")};c.updateProfile=async function(e){const t=await re("auth",e);return console.log("Update profile response:",t),t};c.changePassword=async function(e,t){const n=await re("auth/password",{current_password:e,new_password:t});return console.log("Change password response:",n),n};c.deleteAccount=async function(){const e=await c.getCurrentUser();if(!e||!e.authenticated||!e.user)return{success:!1,error:"Utilisateur non connecté"};const t=e.user.id,n=await ae(`users/${t}`);return console.log("Delete account response:",n),n&&await c.logout(),n};const oe={};oe.init=async function(){const e=i(we);try{const t=await c.getCurrentUser();if(t&&t.authenticated&&t.user){const s=t.user.firstname||"",a=e.querySelector("h1");a&&s&&(a.textContent=`Ravie de vous revoir ${s}`)}}catch(t){console.error("Erreur lors de la récupération de l'utilisateur:",t)}return e};async function Ce(){return await oe.init()}let S={},X=[{id:1,name:"Marteau",description:"Un marteau est un outil utilisé pour enfoncer des clous dans du bois ou d'autres matériaux. Il se compose d'une tête lourde en métal fixée à un manche en bois ou en fibre de verre.",price:9.99},{id:2,name:"Tournevis",description:"Un tournevis est un outil utilisé pour visser ou dévisser des vis. Il se compose d'une tige en métal avec une tête qui s'adapte à la fente de la vis.",price:5.99},{id:3,name:"Clé à molette",description:"Une clé à molette est un outil utilisé pour serrer ou desserrer des écrous et des boulons. Elle se compose d'une mâchoire réglable qui s'adapte à différentes tailles d'écrous.",price:12.99},{id:4,name:"Pince",description:"Une pince est un outil utilisé pour saisir, tenir ou plier des objets. Elle se compose de deux bras articulés qui se rejoignent en un point de pivot.",price:7.99},{id:5,name:"Scie",description:"Une scie est un outil utilisé pour couper des matériaux, généralement en bois. Elle se compose d'une lame dentée fixée à un manche.",price:14.99},{id:6,name:"Perceuse",description:"Une perceuse est un outil utilisé pour percer des trous dans divers matériaux. Elle se compose d'un moteur qui fait tourner une mèche.",price:49.99},{id:7,name:"Ponceuse",description:"Une ponceuse est un outil utilisé pour lisser des surfaces en bois ou en métal. Elle se compose d'un moteur qui fait vibrer ou tourner un abrasif.",price:79.99},{id:8,name:"Mètre",description:"Un mètre est un outil utilisé pour mesurer des distances. Il se compose d'une bande graduée en métal ou en plastique.",price:19.99},{id:9,name:"Niveau à bulle",description:"Un niveau à bulle est un outil utilisé pour vérifier l'horizontalité ou la verticalité d'une surface. Il se compose d'un tube rempli de liquide avec une bulle d'air à l'intérieur.",price:9.99}];S.fetch=async function(e){let t=await A("products/"+e);return t==!1?X.pop():[t]};S.fetchAll=async function(){let e=await A("products");return e==!1?X:e};S.fetchAllByCategory=async function(e){let t=await A(`products?category=${e}`);return t==!1?X:t};let u={},m=[];function Le(){let e=localStorage.getItem("cart");e&&(m=JSON.parse(e))}function W(){localStorage.setItem("cart",JSON.stringify(m))}function qe(){let e=0;for(let t of m)e+=t.price*t.quantity;return{total:e}}u.addItem=function(e){const t=m.find(n=>n.id===e.id);return t?t.quantity<5&&t.quantity++:m.push({id:e.id,name:e.name||"Produit",description:e.description||"",image:e.image||"default.png",price:e.price||0,quantity:1}),W(),!0};u.updateQuantity=function(e,t){let n=m.find(s=>s.id===e);n&&(n.quantity=t,W())};u.removeItem=function(e){m=m.filter(t=>t.id!==e),W()};u.clear=function(){m=[],W()};u.getItems=function(){return m};u.getItemCount=function(){let e=0;for(let t of m)e+=t.quantity;return e};u.isEmpty=function(){return m.length===0};u.getState=function(){let e=qe();return{items:m,itemCount:u.getItemCount(),total:e.total,isEmpty:m.length===0}};Le();const Y=`<header class="bg-white text-black border-b border-black/10 font-body">
+`;let D="https://wwW.w-gader.mmi-limoges.fr/api-ecom/",A=async function(e){let t={method:"GET",credentials:"include"};try{var n=await fetch(D+e,t)}catch(a){return console.error("Echec de la requête : "+a),!1}return n.status!=200?(console.error("Erreur de requête : "+n.status),!1):await n.json()},se=async function(e,t){let n={credentials:"include",method:"POST",header:{"Content-Type":"multipart/form-data"},body:t};try{var s=await fetch(D+e,n)}catch(r){return console.error("Echec de la requête : "+r),!1}let a=await s.json();return s.status!=200&&console.error("Erreur de requête : "+s.status,a),a},ke=async function(e,t){let n={method:"POST",header:{"Content-Type":"application/json"},body:t};try{var s=await fetch(D+e,n)}catch(r){return console.error("Echec de la requête : "+r),!1}let a=await s.json();return s.status!=200&&console.error("Erreur de requête : "+s.status,a),a},ae=async function(e){let t={method:"DELETE",credentials:"include"};try{var n=await fetch(D+e,t)}catch(a){return console.error("Echec de la requête : "+a),!1}return n.status!=200?(console.error("Erreur de requête : "+n.status),!1):await n.json()},re=async function(e,t){let n={method:"PATCH",credentials:"include",headers:{"Content-Type":"application/json"},body:JSON.stringify(t)};try{var s=await fetch(D+e,n)}catch(r){return console.error("Echec de la requête : "+r),!1}let a=await s.json();return s.status!=200&&console.error("Erreur de requête : "+s.status,a),a},c={};c.login=async function(e){const t=await se("auth",JSON.stringify(e));return console.log("Login response:",t),t};c.signup=async function(e){const t=await ke("users",JSON.stringify(e));return console.log("Signup response:",t),t};c.getCurrentUser=async function(){return await A("auth")};c.logout=async function(){return await ae("auth")};c.updateProfile=async function(e){const t=await re("auth",e);return console.log("Update profile response:",t),t};c.changePassword=async function(e,t){const n=await re("auth/password",{current_password:e,new_password:t});return console.log("Change password response:",n),n};c.deleteAccount=async function(){const e=await c.getCurrentUser();if(!e||!e.authenticated||!e.user)return{success:!1,error:"Utilisateur non connecté"};const t=e.user.id,n=await ae(`users/${t}`);return console.log("Delete account response:",n),n&&await c.logout(),n};const oe={};oe.init=async function(){const e=i(we);try{const t=await c.getCurrentUser();if(t&&t.authenticated&&t.user){const s=t.user.firstname||"",a=e.querySelector("h1");a&&s&&(a.textContent=`Ravie de vous revoir ${s}`)}}catch(t){console.error("Erreur lors de la récupération de l'utilisateur:",t)}return e};async function Ce(){return await oe.init()}let S={},X=[{id:1,name:"Marteau",description:"Un marteau est un outil utilisé pour enfoncer des clous dans du bois ou d'autres matériaux. Il se compose d'une tête lourde en métal fixée à un manche en bois ou en fibre de verre.",price:9.99},{id:2,name:"Tournevis",description:"Un tournevis est un outil utilisé pour visser ou dévisser des vis. Il se compose d'une tige en métal avec une tête qui s'adapte à la fente de la vis.",price:5.99},{id:3,name:"Clé à molette",description:"Une clé à molette est un outil utilisé pour serrer ou desserrer des écrous et des boulons. Elle se compose d'une mâchoire réglable qui s'adapte à différentes tailles d'écrous.",price:12.99},{id:4,name:"Pince",description:"Une pince est un outil utilisé pour saisir, tenir ou plier des objets. Elle se compose de deux bras articulés qui se rejoignent en un point de pivot.",price:7.99},{id:5,name:"Scie",description:"Une scie est un outil utilisé pour couper des matériaux, généralement en bois. Elle se compose d'une lame dentée fixée à un manche.",price:14.99},{id:6,name:"Perceuse",description:"Une perceuse est un outil utilisé pour percer des trous dans divers matériaux. Elle se compose d'un moteur qui fait tourner une mèche.",price:49.99},{id:7,name:"Ponceuse",description:"Une ponceuse est un outil utilisé pour lisser des surfaces en bois ou en métal. Elle se compose d'un moteur qui fait vibrer ou tourner un abrasif.",price:79.99},{id:8,name:"Mètre",description:"Un mètre est un outil utilisé pour mesurer des distances. Il se compose d'une bande graduée en métal ou en plastique.",price:19.99},{id:9,name:"Niveau à bulle",description:"Un niveau à bulle est un outil utilisé pour vérifier l'horizontalité ou la verticalité d'une surface. Il se compose d'un tube rempli de liquide avec une bulle d'air à l'intérieur.",price:9.99}];S.fetch=async function(e){let t=await A("products/"+e);return t==!1?X.pop():[t]};S.fetchAll=async function(){let e=await A("products");return e==!1?X:e};S.fetchAllByCategory=async function(e){let t=await A(`products?category=${e}`);return t==!1?X:t};let u={},p=[];function Le(){let e=localStorage.getItem("cart");e&&(p=JSON.parse(e))}function W(){localStorage.setItem("cart",JSON.stringify(p))}function qe(){let e=0;for(let t of p)e+=t.price*t.quantity;return{total:e}}u.addItem=function(e){const t=p.find(n=>n.id===e.id);return t?t.quantity<5&&t.quantity++:p.push({id:e.id,name:e.name||"Produit",description:e.description||"",image:e.image||"default.png",price:e.price||0,quantity:1}),W(),!0};u.updateQuantity=function(e,t){let n=p.find(s=>s.id===e);n&&(n.quantity=t,W())};u.removeItem=function(e){p=p.filter(t=>t.id!==e),W()};u.clear=function(){p=[],W()};u.getItems=function(){return p};u.getItemCount=function(){let e=0;for(let t of p)e+=t.quantity;return e};u.isEmpty=function(){return p.length===0};u.getState=function(){let e=qe();return{items:p,itemCount:u.getItemCount(),total:e.total,isEmpty:p.length===0}};Le();const Y=`<header class="bg-white text-black border-b border-black/10 font-body">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
   <div class="h-16 flex items-center justify-between">
       <!-- Burger -->
       <button id="navBtn" type="button" class="p-2 -ml-2 md:hidden">
-        <img id="iconOpen"  src="/assets/images/icons/burger.svg" alt="Ouvrir le menu" class="h-6 w-6">
-        <img id="iconClose" src="/assets/images/icons/close.svg"  alt="Fermer le menu" class="h-6 w-6 hidden">
+        <img id="iconOpen"  src="/click-collect-ecom/assets/images/icons/burger.svg" alt="Ouvrir le menu" class="h-6 w-6">
+        <img id="iconClose" src="/click-collect-ecom/assets/images/icons/close.svg"  alt="Fermer le menu" class="h-6 w-6 hidden">
       </button>
 
       <!-- Logo -->
-      <a href="/" class="flex-1 md:flex-none flex justify-center md:justify-start">
-        <img src="/assets/images/brands/logo.svg" alt="Galeries Lafayette" class="h-7 w-auto">
+      <a href="/click-collect-ecom/" class="flex-1 md:flex-none flex justify-center md:justify-start">
+        <img src="/click-collect-ecom/assets/images/brands/logo.svg" alt="Galeries Lafayette" class="h-7 w-auto">
       </a>
 
       <!-- Nav desktop -->
@@ -168,13 +168,13 @@
       <div class="flex items-center gap-10">
         <!-- Panier avec badge -->
         <a href="/cart" data-link class="relative">
-          <img src="/assets/images/icons/shopping-bag.svg" alt="Mon panier" class="h-6 w-6">
+          <img src="/click-collect-ecom/assets/images/icons/shopping-bag.svg" alt="Mon panier" class="h-6 w-6">
           <span id="cart-badge" class="absolute -top-2 -right-2 bg-notif text-white text-xs font-semibold rounded-full h-5 w-5 items-center justify-center hidden">0</span>
         </a>
 
         <!-- Profil -->
         <a href="/my-account/dashboard" data-link>
-          <img src="/assets/images/icons/profile.svg" alt="Mon compte" class="h-6 w-6">
+          <img src="/click-collect-ecom/assets/images/icons/profile.svg" alt="Mon compte" class="h-6 w-6">
         </a>
       </div>
 
@@ -188,23 +188,23 @@
       <ul class="mt-10 mb-8 text-base font-medium">
         <li>
           <a href="/products" data-link class="flex items-center justify-between">
-            <span>PRODUITS</span><img src="/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4">
+            <span>PRODUITS</span><img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4">
           </a>
           <span class="block mt-2 w-12 h-[0.125rem] bg-black"></span>
         </li>
-        <li><a href="/category/1" data-link class="flex items-center justify-between"><span>VÊTEMENTS</span><img src="/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4"></a></li>
-        <li><a href="/category/2" data-link class="flex items-center justify-between"><span>CHAUSSURES</span><img src="/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4"></a></li>
-        <li><a href="/category/3" data-link class="flex items-center justify-between"><span>ACCESSOIRES</span><img src="/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4"></a></li>
+        <li><a href="/category/1" data-link class="flex items-center justify-between"><span>VÊTEMENTS</span><img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4"></a></li>
+        <li><a href="/category/2" data-link class="flex items-center justify-between"><span>CHAUSSURES</span><img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4"></a></li>
+        <li><a href="/category/3" data-link class="flex items-center justify-between"><span>ACCESSOIRES</span><img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4"></a></li>
       </ul>
     </nav>
     <a href="/signin">
-        <img src="/assets/images/icons/profile.svg" alt="Se connecter" class="h-auto">
+        <img src="/click-collect-ecom/assets/images/icons/profile.svg" alt="Se connecter" class="h-auto">
     </a>
   </div>
 </header>`;let j={html:function(){return Y},dom:function(){let e=i(Y);const t=e.querySelector("#navBtn"),n=e.querySelector("#drawer"),s=e.querySelector("#backdrop"),a=e.querySelector("#iconOpen"),r=e.querySelector("#iconClose");t&&n&&s&&(t.onclick=()=>{n.classList.toggle("hidden"),a.classList.toggle("hidden"),r.classList.toggle("hidden")},s.onclick=()=>{n.classList.add("hidden"),a.classList.remove("hidden"),r.classList.add("hidden")});const o=window.location.pathname;return e.querySelectorAll("a[data-link]").forEach(f=>f.classList.remove("active")),o==="/products"?e.querySelector('a[href="/products"]').classList.add("active"):o.startsWith("/category/1")?e.querySelector('a[href="/category/1"]').classList.add("active"):o.startsWith("/category/2")?e.querySelector('a[href="/category/2"]').classList.add("active"):o.startsWith("/category/3")&&e.querySelector('a[href="/category/3"]').classList.add("active"),j.updateCartBadge(e),e},updateCartBadge:function(e=document){const t=e.querySelector("#cart-badge");if(!t)return;const n=u.getItemCount();t.textContent=n,n>0?(t.classList.remove("hidden"),t.classList.add("flex")):(t.classList.add("hidden"),t.classList.remove("flex"))}};const Se=`<article class="relative">
   <a href="/products/{{id}}/{{name}}" data-link class="block">
     <figure>
-      <img src="/assets/images/products/{{id}}/{{image}}" alt="{{name}}"
+      <img src="/click-collect-ecom/assets/images/products/{{id}}/{{image}}" alt="{{name}}"
         class="w-full aspect-[4/5] object-cover bg-white">
       <figcaption class="pt-1 pl-1 md:p-4 lg:p-4">
         <p class="font-display text-base font-bold text-text uppercase">
@@ -245,7 +245,7 @@
 
     <!-- Image principale -->
     <figure class="lg:col-span-7">
-  <img id="p-main" src="/assets/images/products/{{id}}/{{image}}" alt="{{name}}"
+  <img id="p-main" src="/click-collect-ecom/assets/images/products/{{id}}/{{image}}" alt="{{name}}"
            class="w-full aspect-[4/5] lg:h-[35rem] lg:w-auto lg:aspect-auto object-cover object-top bg-white">
       <figcaption class="mt-3 flex items-center justify-center gap-2 lg:hidden" id="p-dots">
         <!-- dots générés dynamiquement -->
@@ -274,7 +274,7 @@
       <details id="details" class="mt-12">
         <summary class="cursor-pointer flex items-center justify-between text-xl font-display">
           <span>Détails et composition</span>
-          <img src="/assets/images/icons/chevron-right.svg" alt="Ouvrir" class="h-4 w-4">
+          <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Ouvrir" class="h-4 w-4">
         </summary>
         <div class="mt-6 pt-6 border-t">
           <p class="text-sm md:text-base">{{details}}</p>
@@ -284,7 +284,7 @@
   </div>
 </article>`;let ce={html:function(e){return I(Pe,e)},dom:function(e){let t=i(ce.html(e));const n=t.querySelector("#p-main"),s=t.querySelector("#p-thumbs"),a=t.querySelector("#p-dots");var r=["default.png"];if(e&&e.images&&Array.isArray(e.images)&&e.images.length?r=e.images:e&&e.image&&(r=[e.image]),n&&e&&e.id&&(n.src="/assets/images/products/"+e.id+"/"+r[0],n.alt=e.name||""),s){s.innerHTML="";for(var o=0;o<r.length;o++){var l=r[o],f=document.createElement("li"),x=document.createElement("button");x.type="button",x.style="border:none; background:none; padding:0; margin:0;",x.setAttribute("data-src","/assets/images/products/"+e.id+"/"+l),x.className=o===0?"bullets":"bullets-grey";var V=document.createElement("img");V.src="/assets/images/products/"+e.id+"/"+l,V.alt=e.name||"Image produit",V.style="width:70%; aspect-ratio:4/5; object-fit:cover; cursor: pointer;",x.appendChild(V),(function(v,w){w.addEventListener("click",function(){n&&(n.src=w.getAttribute("data-src"));for(var h=s.querySelectorAll("button"),b=0;b<h.length;b++)b===v?h[b].className="bullets":h[b].className="bullets-grey";if(a)for(var y=a.querySelectorAll("button"),F=0;F<y.length;F++)y[F].style.opacity=F===v?"1":".3"})})(o,x),f.appendChild(x),s.appendChild(f)}}if(a){a.innerHTML="";for(var O=0;O<r.length;O++){var R=document.createElement("button");R.type="button",R.className="h-2 w-2 rounded-full bg-black",R.style.opacity=O===0?"1":".3",(function(v){R.addEventListener("click",function(){if(n&&(n.src="/assets/images/products/"+e.id+"/"+r[v]),s)for(var w=s.querySelectorAll("button"),h=0;h<w.length;h++)h===v?w[h].className="bullets":w[h].className="bullets-grey";for(var b=a.querySelectorAll("button"),y=0;y<b.length;y++)b[y].style.opacity=y===v?"1":".3"})})(O),a.appendChild(R)}}return t}};const Ie=`<div class="px-4 md:px-6 lg:px-8 py-4">
    <a href="/products" data-link class="inline-flex items-center gap-2 text-sm">
-     <img src="/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180" />
+     <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180" />
      <span class="hidden md:inline">Retour</span>
    </a>
  
@@ -292,7 +292,7 @@
  </div>
  `;let $={products:[]};$.getProductById=function(e){return $.products.find(t=>t.id==e)};let Q={};Q.handler_clickOnProduct=function(e){if(e.target.dataset.buy!==void 0){let t=parseInt(e.target.dataset.buy);const n=$.getProductById(t);if(n&&u.addItem({id:n.id,name:n.name,description:n.description||n.descriptionShort,image:n.image,price:n.price})){j.updateCartBadge(document);const a=e.target,r=a.textContent;a.textContent="✓ Ajouté au panier",a.disabled=!0,setTimeout(()=>{a.textContent=r,a.disabled=!1},2e3)}}};Q.init=async function(e){const t=e.id;$.products=await S.fetchAll();let n=$.getProductById(t);return console.log("Product loaded:",n),n&&(n.image=n.images&&Array.isArray(n.images)&&n.images.length?n.images[0]:n.image||"default.png"),C.init(n)};let C={};C.init=function(e){let t=C.createPageFragment(e);return C.attachEvents(t),t};C.createPageFragment=function(e){let t=i(Ie),n=ce.dom(e);return t.querySelector('slot[name="detail"]').replaceWith(n),t};C.attachEvents=function(e){return e.querySelector("[data-buy]").addEventListener("click",Q.handler_clickOnProduct),e};function Ae(e){return console.log("ProductDetailPage",e),Q.init(e)}const je=`<main class="px-4 md:px-6 lg:px-8 py-6">
   <a href="/products" data-link class="inline-flex items-center gap-2 text-sm mb-6">
-    <img src="/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180">
+    <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180">
     <span class="hidden md:inline">Retour</span>
   </a>
 
@@ -314,7 +314,7 @@
   <a href="/my-account/orders" data-link class="block border border-black/20 p-4 md:p-10">
     <article class="flex items-start justify-between">
       <figure class="flex items-start gap-3">
-        <img src="/assets/images/icons/orders.svg" alt="Icône commandes" class="h-5 w-5 mt-0.5">
+        <img src="/click-collect-ecom/assets/images/icons/orders.svg" alt="Icône commandes" class="h-5 w-5 mt-0.5">
         <figcaption>
           <h2 class="font-display text-base md:text-lg">Vos commandes</h2>
           <p class="font-body text-description text-sm mt-2">
@@ -322,14 +322,14 @@
           </p>
         </figcaption>
       </figure>
-      <img src="/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4 mt-1">
+      <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4 mt-1">
     </article>
   </a>
 
   <a href="/my-account/profile" data-link class="block border border-black/20 p-4 md:p-10">
     <article class="flex items-start justify-between">
       <figure class="flex items-start gap-3">
-        <img src="/assets/images/icons/profile.svg" alt="Icône profil" class="h-5 w-5 mt-0.5">
+        <img src="/click-collect-ecom/assets/images/icons/profile.svg" alt="Icône profil" class="h-5 w-5 mt-0.5">
         <figcaption>
           <h2 class="font-display text-base md:text-lg">Vos informations personnelles</h2>
           <p class="font-body text-description text-sm mt-2">
@@ -337,13 +337,13 @@
           </p>
         </figcaption>
       </figure>
-      <img src="/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4 mt-1">
+      <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Voir" class="h-4 w-4 mt-1">
     </article>
   </a>
 </section>
 `;let Re={html:function(){return ee},dom:function(){return i(ee)}},de={};de.render=function(e){let t=je.replace("{{name}}",e.firstname);const n=i(t),s=n.querySelector('slot[name="dashboard-cards"]');s&&s.replaceWith(Re.dom());const a=n.querySelector("#logout-btn");return a&&a.addEventListener("click",async()=>{await c.logout(),window.location.href="/signin"}),n};async function Me(){const e=await c.getCurrentUser();if(!e||!e.authenticated){window.location.href="/signin";return}return de.render(e.user)}const $e=`<main class="px-4 md:px-6 lg:px-8 py-6">
   <a href="/products" data-link class="inline-flex items-center gap-2 text-sm mb-6">
-    <img src="/assets/images/icons/arrow-left.svg" alt="Retour" class="h-4 w-4">
+    <img src="/click-collect-ecom/assets/images/icons/arrow-left.svg" alt="Retour" class="h-4 w-4">
     <span class="hidden md:inline">Retour</span>
   </a>
 
@@ -355,7 +355,7 @@
 </main>
 `,Te=`<section class="font-body text-text py-12 text-center">
   <figure class="mb-6">
-    <img src="/assets/images/icons/shopping-bag.svg" alt="Panier vide" class="h-20 w-20 mx-auto opacity-30">
+    <img src="/click-collect-ecom/assets/images/icons/shopping-bag.svg" alt="Panier vide" class="h-20 w-20 mx-auto opacity-30">
   </figure>
   
   <h2 class="font-display text-2xl mb-2">Votre panier est vide</h2>
@@ -407,7 +407,7 @@
     <section class="p-4 md:p-6 grid grid-cols-[96px_1fr_auto] md:grid-cols-[120px_1fr_auto] gap-4 md:gap-6 items-start">
       <!-- Image produit -->
       <figure class="w-24 md:w-30">
-        <img src="/assets/images/products/{{id}}/{{image}}" alt="{{name}}" class="w-full h-auto object-cover">
+        <img src="/click-collect-ecom/assets/images/products/{{id}}/{{image}}" alt="{{name}}" class="w-full h-auto object-cover">
       </figure>
 
       <!-- Infos -->
@@ -421,7 +421,7 @@
       <section>
         <button type="button" data-remove="{{id}}"
                 class="rounded-full border border-black/30 w-8 h-8 inline-flex items-center justify-center cursor-pointer">
-          <img src="/assets/images/icons/trash.svg" alt="Supprimer l'article" class="h-4 w-4">
+          <img src="/click-collect-ecom/assets/images/icons/trash.svg" alt="Supprimer l'article" class="h-4 w-4">
         </button>
       </section>
     </section>
@@ -439,7 +439,7 @@
             <option{{q4}}>4</option>
             <option{{q5}}>5</option>
           </select>
-          <img src="/assets/images/icons/chevron-down.svg" alt="Ouvrir le menu" class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4">
+          <img src="/click-collect-ecom/assets/images/icons/chevron-down.svg" alt="Ouvrir le menu" class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4">
         </label>
       </section>
 
@@ -447,7 +447,7 @@
     </footer>
   </article>
 </li>
-`;let E={cart:{}},P={};P.handleQuantityChange=function(e){const t=e.target,n=parseInt(t.dataset.qty),s=parseInt(t.value);u.updateQuantity(n,s),p.refreshCartContent(),j.updateCartBadge(document)};P.handleRemoveItem=function(e){const t=e.target.closest("button[data-remove]");if(!t)return;const n=parseInt(t.dataset.remove);confirm("Voulez-vous retirer cet article du panier ?")&&(u.removeItem(n),p.refreshCartContent(),j.updateCartBadge(document))};P.init=async function(){return E.cart=u.getState(),p.init()};let p={};p.init=function(){const e=i($e),t=e.querySelector('slot[name="cart-content"]');if(E.cart.isEmpty)t.replaceWith(i(Te));else{const n=p.createCartContent();t.replaceWith(n),p.attachEvents(e)}return e};p.createCartContent=function(){const e=E.cart.itemCount,t=e>1?"articles":"article",n={itemsCount:e,itemsCountLabel:t,total:E.cart.total.toFixed(2)};let s=I(De,n);const a=i(s),r=a.querySelector('slot[name="items"]'),o=p.createItemsList();return r.replaceWith(o),a};p.createItemsList=function(){const e=document.createDocumentFragment();return E.cart.items.forEach(t=>{const n=p.createItemDOM(t);e.appendChild(n)}),e};p.createItemDOM=function(e){let t=Ve;t=t.replace(/{{id}}/g,e.id||""),t=t.replace(/{{image}}/g,e.image||"default.png"),t=t.replace(/{{name}}/g,e.name||"Produit"),t=t.replace(/{{description}}/g,e.description||""),t=t.replace(/{{unitPrice}}/g,(e.price||0).toFixed(2));const n=((e.price||0)*(e.quantity||1)).toFixed(2);t=t.replace(/{{lineTotal}}/g,n);for(let s=1;s<=5;s++){const a=e.quantity===s?" selected":"";t=t.replace(`{{q${s}}}`,a)}return i(t).firstElementChild};p.attachEvents=function(e){e.querySelectorAll("select[data-qty]").forEach(s=>{s.addEventListener("change",P.handleQuantityChange)}),e.querySelectorAll("button[data-remove]").forEach(s=>{s.addEventListener("click",P.handleRemoveItem)})};p.refreshCartContent=function(){E.cart=u.getState();const e=document.querySelector("main");if(!e)return;for(;e.firstChild;)e.removeChild(e.firstChild);const t=p.init();e.appendChild(t)};function Oe(){return P.init()}const Fe=`<section class="px-4 md:px-6 lg:px-8 py-6">
+`;let E={cart:{}},P={};P.handleQuantityChange=function(e){const t=e.target,n=parseInt(t.dataset.qty),s=parseInt(t.value);u.updateQuantity(n,s),m.refreshCartContent(),j.updateCartBadge(document)};P.handleRemoveItem=function(e){const t=e.target.closest("button[data-remove]");if(!t)return;const n=parseInt(t.dataset.remove);confirm("Voulez-vous retirer cet article du panier ?")&&(u.removeItem(n),m.refreshCartContent(),j.updateCartBadge(document))};P.init=async function(){return E.cart=u.getState(),m.init()};let m={};m.init=function(){const e=i($e),t=e.querySelector('slot[name="cart-content"]');if(E.cart.isEmpty)t.replaceWith(i(Te));else{const n=m.createCartContent();t.replaceWith(n),m.attachEvents(e)}return e};m.createCartContent=function(){const e=E.cart.itemCount,t=e>1?"articles":"article",n={itemsCount:e,itemsCountLabel:t,total:E.cart.total.toFixed(2)};let s=I(De,n);const a=i(s),r=a.querySelector('slot[name="items"]'),o=m.createItemsList();return r.replaceWith(o),a};m.createItemsList=function(){const e=document.createDocumentFragment();return E.cart.items.forEach(t=>{const n=m.createItemDOM(t);e.appendChild(n)}),e};m.createItemDOM=function(e){let t=Ve;t=t.replace(/{{id}}/g,e.id||""),t=t.replace(/{{image}}/g,e.image||"default.png"),t=t.replace(/{{name}}/g,e.name||"Produit"),t=t.replace(/{{description}}/g,e.description||""),t=t.replace(/{{unitPrice}}/g,(e.price||0).toFixed(2));const n=((e.price||0)*(e.quantity||1)).toFixed(2);t=t.replace(/{{lineTotal}}/g,n);for(let s=1;s<=5;s++){const a=e.quantity===s?" selected":"";t=t.replace(`{{q${s}}}`,a)}return i(t).firstElementChild};m.attachEvents=function(e){e.querySelectorAll("select[data-qty]").forEach(s=>{s.addEventListener("change",P.handleQuantityChange)}),e.querySelectorAll("button[data-remove]").forEach(s=>{s.addEventListener("click",P.handleRemoveItem)})};m.refreshCartContent=function(){E.cart=u.getState();const e=document.querySelector("main");if(!e)return;for(;e.firstChild;)e.removeChild(e.firstChild);const t=m.init();e.appendChild(t)};function Oe(){return P.init()}const Fe=`<section class="px-4 md:px-6 lg:px-8 py-6">
   <header class="mb-6">
     <h1 class="font-display text-3xl md:text-5xl">Finaliser la commande</h1>
   </header>
@@ -479,7 +479,7 @@
   </a>
 </article>
 </article>
-`;let ue={html:function(e){const t=e.reduce((s,a)=>s+a.price*a.quantity,0),n={"cart-count":e.length,"cart-total":t.toFixed(2)};return I(Be,n)},dom:function(e){return i(ue.html(e))}},T={cart:{}},G={};G.handleValidate=async function(){const e=await c.getCurrentUser();if(!e||!e.authenticated){window.location.href="/signin";return}const t={user_id:e.user.id,total:T.cart.total,items:T.cart.items.map(s=>({product_id:s.id,quantity:s.quantity,unit_price:s.price}))};console.log("Envoi commande:",t);const n=await se("orders",JSON.stringify(t));console.log("Réponse complète:",n),console.log("order.id:",n?n.id:"order est null"),console.log("Type de order.id:",typeof(n?n.id:null)),n&&n.id?(localStorage.setItem("lastOrderId",n.id),u.clear(),window.location.href="/order-confirmation"):(console.error("Pas d'ID dans la réponse!",n),alert("Erreur lors de la validation"))};G.init=async function(){if(T.cart=u.getState(),T.cart.isEmpty){window.location.href="/cart";return}return pe.init()};let pe={};pe.init=function(){const e=i(Fe);return e.getElementById("checkout-summary").appendChild(ue.dom(T.cart.items)),e.getElementById("validate-order").addEventListener("click",G.handleValidate),e};function ze(){return G.init()}const me=`<main class="px-4 md:px-6 lg:px-8 py-6">
+`;let ue={html:function(e){const t=e.reduce((s,a)=>s+a.price*a.quantity,0),n={"cart-count":e.length,"cart-total":t.toFixed(2)};return I(Be,n)},dom:function(e){return i(ue.html(e))}},T={cart:{}},G={};G.handleValidate=async function(){const e=await c.getCurrentUser();if(!e||!e.authenticated){window.location.href="/signin";return}const t={user_id:e.user.id,total:T.cart.total,items:T.cart.items.map(s=>({product_id:s.id,quantity:s.quantity,unit_price:s.price}))};console.log("Envoi commande:",t);const n=await se("orders",JSON.stringify(t));console.log("Réponse complète:",n),console.log("order.id:",n?n.id:"order est null"),console.log("Type de order.id:",typeof(n?n.id:null)),n&&n.id?(localStorage.setItem("lastOrderId",n.id),u.clear(),window.location.href="/order-confirmation"):(console.error("Pas d'ID dans la réponse!",n),alert("Erreur lors de la validation"))};G.init=async function(){if(T.cart=u.getState(),T.cart.isEmpty){window.location.href="/cart";return}return me.init()};let me={};me.init=function(){const e=i(Fe);return e.getElementById("checkout-summary").appendChild(ue.dom(T.cart.items)),e.getElementById("validate-order").addEventListener("click",G.handleValidate),e};function ze(){return G.init()}const pe=`<main class="px-4 md:px-6 lg:px-8 py-6">
   <div class="max-w-2xl mx-auto text-center">
     <div class="mb-8">
       <svg class="w-24 h-24 mx-auto text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -493,7 +493,7 @@
     <section id="order-detail" class="mb-8"></section>
 
     <div class="flex gap-4 justify-center">
-      <a href="/" data-link 
+      <a href="/click-collect-ecom/" data-link 
          class="px-6 py-3 font-display uppercase bg-black text-white rounded-[var(--radius-btn)] hover:bg-black/90 cursor-pointer">
         Retour à l'accueil
       </a>
@@ -538,7 +538,7 @@
                     <span>${f.product_name||"Produit"} x ${f.quantity}</span>
                     <span class="font-semibold">${parseFloat(f.unit_price).toFixed(2)} €</span>
                 </p>
-            `).join(""));const a={"order-number":e.id,"order-date":t.toLocaleDateString("fr-FR"),"order-status":e.status,"order-total":n};let r=I(Ue,a);const o=i(r),l=o.querySelector('section[id="order-items"]');return l&&s&&(l.innerHTML=s),o.innerHTML||r},dom:function(e){return i(fe.html(e))}},K={order:null},ge={};ge.init=async function(e){const t=localStorage.getItem("lastOrderId");return!t||(K.order=await A("orders/"+t),localStorage.removeItem("lastOrderId"),!K.order)?M.initError():M.init()};let M={};M.init=function(){const e=i(me);return e.getElementById("order-detail").appendChild(fe.dom(K.order)),e};M.initError=function(){const e=i(me),t=e.getElementById("order-detail");return t.innerHTML='<p class="text-error">Commande introuvable</p>',e};function _e(e){return ge.init(e)}const he=`<main class="px-4 md:px-6 lg:px-8 py-6">
+            `).join(""));const a={"order-number":e.id,"order-date":t.toLocaleDateString("fr-FR"),"order-status":e.status,"order-total":n};let r=I(Ue,a);const o=i(r),l=o.querySelector('section[id="order-items"]');return l&&s&&(l.innerHTML=s),o.innerHTML||r},dom:function(e){return i(fe.html(e))}},K={order:null},ge={};ge.init=async function(e){const t=localStorage.getItem("lastOrderId");return!t||(K.order=await A("orders/"+t),localStorage.removeItem("lastOrderId"),!K.order)?M.initError():M.init()};let M={};M.init=function(){const e=i(pe);return e.getElementById("order-detail").appendChild(fe.dom(K.order)),e};M.initError=function(){const e=i(pe),t=e.getElementById("order-detail");return t.innerHTML='<p class="text-error">Commande introuvable</p>',e};function _e(e){return ge.init(e)}const he=`<main class="px-4 md:px-6 lg:px-8 py-6">
   <header class="mb-6">
     <h1 class="font-display text-3xl md:text-5xl">Mes commandes</h1>
   </header>
@@ -672,7 +672,7 @@
     <h1>404 - Page non trouvée</h1>
         <p>Cette page n'existe pas</p>
     <nav>
-        <a href="/" data-link>Retour à l'accueil</a>
+        <a href="/click-collect-ecom/" data-link>Retour à l'accueil</a>
     </nav>
 </section>`;function Je(){return Ge}const Ke=`<main class="mx-auto w-full max-w-[22.5rem] px-3 pt-3 pb-10 md:max-w-[26.25rem] md:px-4 font-body text-text">
   <h1 class="font-display text-4xl md:text-5xl">Inscription</h1>
@@ -680,7 +680,7 @@
   <nav class="mt-2">
     <a href="/signin" data-link class="inline-flex items-center gap-2 underline text-sm md:text-base">
       Vous avez déjà un compte ?
-      <img src="/assets/images/icons/chevron-right.svg" alt="Flèche vers la droite" class="h-4 w-4" />
+      <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Flèche vers la droite" class="h-4 w-4" />
     </a>
   </nav>
 
@@ -754,31 +754,31 @@
                  rounded-none outline-none appearance-none
                  placeholder:text-description focus:border-text" />
         <button type="button" id="toggle-password" aria-label="Afficher/masquer le mot de passe" class="absolute right-3 top-1/2 -translate-y-1/2 text-description hover:text-text">
-          <img id="eye-closed" src="/assets/images/icons/eye-closed.svg" alt="Mot de passe masqué" class="eye-icon" />
-          <img id="eye-open" src="/assets/images/icons/eye-open.svg" alt="Mot de passe visible" class="eye-icon hidden" />
+          <img id="eye-closed" src="/click-collect-ecom/assets/images/icons/eye-closed.svg" alt="Mot de passe masqué" class="eye-icon" />
+          <img id="eye-open" src="/click-collect-ecom/assets/images/icons/eye-open.svg" alt="Mot de passe visible" class="eye-icon hidden" />
         </button>
       </span>
     </section>
 
     <ul class="mt-3 grid grid-cols-1 gap-2 text-xs md:grid-cols-2">
       <li id="rule-length" class="inline-flex items-center gap-2 password-rule-invalid">
-        <img src="/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
+        <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
         12&nbsp;caractères minimum
       </li>
       <li id="rule-uppercase" class="inline-flex items-center gap-2 password-rule-invalid">
-        <img src="/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
+        <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
         Un caractère en majuscule
       </li>
       <li id="rule-lowercase" class="inline-flex items-center gap-2 password-rule-invalid">
-        <img src="/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
+        <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
         Un caractère en minuscule
       </li>
       <li id="rule-special" class="inline-flex items-center gap-2 password-rule-invalid">
-        <img src="/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
+        <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
         Un caractère spécial
       </li>
       <li id="rule-number" class="inline-flex items-center gap-2 md:col-span-2 password-rule-invalid">
-        <img src="/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
+        <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="Règle validée" class="h-4 w-4 flex-shrink-0" />
         Un chiffre
       </li>
     </ul>
@@ -793,7 +793,7 @@
 </main>
 `,Xe={dom(){return i(Ke)}},Ye=`<div class="px-4 md:px-6 lg:px-8 py-4">
    <a href="/products" data-link class="inline-flex items-center gap-2 text-sm">
-     <img src="/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180" />
+     <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180" />
      <span class="hidden md:inline">Retour</span>
    </a>
  
@@ -805,7 +805,7 @@
   <nav class="mt-2">
     <a href="/signup" data-link class="inline-flex items-center gap-2 underline text-sm md:text-base">
       Vous n’avez pas de compte ?
-      <img src="/assets/images/icons/chevron-right.svg" alt="" class="h-4 w-4" />
+      <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="" class="h-4 w-4" />
     </a>
   </nav>
 
@@ -834,8 +834,8 @@
                  placeholder:text-description focus:border-text" />
         <button type="button" id="toggle-password" aria-label="Afficher/masquer le mot de passe"
           class="absolute right-3 top-1/2 -translate-y-1/2 text-description hover:text-text">
-          <img id="eye-closed" src="/assets/images/icons/eye-closed.svg" alt="Masquer le mot de passe" class="eye-icon" />
-          <img id="eye-open" src="/assets/images/icons/eye-open.svg" alt="Afficher le mot de passe" class="eye-icon hidden" />
+          <img id="eye-closed" src="/click-collect-ecom/assets/images/icons/eye-closed.svg" alt="Masquer le mot de passe" class="eye-icon" />
+          <img id="eye-open" src="/click-collect-ecom/assets/images/icons/eye-open.svg" alt="Afficher le mot de passe" class="eye-icon hidden" />
         </button>
       </span>
     </fieldset>
@@ -853,8 +853,8 @@
   </form>
 </main>`,nt={dom(){return i(tt)}},st=`<main class="px-4 py-4 md:px-6 lg:px-8">
   <nav class="inline-flex items-center gap-2 text-sm">
-    <a href="/" data-link class="inline-flex items-center gap-2">
-      <img src="/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180" />
+    <a href="/click-collect-ecom/" data-link class="inline-flex items-center gap-2">
+      <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180" />
       <span class="hidden md:inline">Retour</span>
     </a>
   </nav>
@@ -864,7 +864,7 @@
 `;let N={};N.handleFormSubmit=async function(e){e.preventDefault(),e.stopPropagation();const t=e.target,n=t.querySelector("#error-message");if(!n)return;n.classList.add("hidden"),n.textContent="";let s=new FormData(t);const a={email:s.get("email"),password:s.get("password")},r=await c.login(a);r&&r.success?window.location.href="/":r&&r.error?(n.textContent=r.error,n.classList.remove("hidden")):(n.textContent="Erreur de connexion",n.classList.remove("hidden"))};N.togglePassword=function(e){const t=e.currentTarget,n=t.closest(".relative").querySelector("input"),s=t.querySelector("#eye-closed"),a=t.querySelector("#eye-open");n.type==="password"?(n.type="text",s.classList.add("hidden"),a.classList.remove("hidden")):(n.type="password",s.classList.remove("hidden"),a.classList.add("hidden"))};let H={};H.attachEvents=function(e){const t=e.querySelector("form"),n=e.querySelector("#toggle-password");t&&t.addEventListener("submit",N.handleFormSubmit),n&&n.addEventListener("click",N.togglePassword)};H.init=function(){const e=i(st),t=nt.dom();return e.querySelector('slot[name="form"]').replaceWith(t),H.attachEvents(e),e};function at(){return H.init()}const rt=`<main class="px-4 py-4 md:px-6 lg:px-8">
   <nav class="inline-flex items-center gap-2 text-sm mb-6">
     <a href="/my-account/dashboard" data-link class="inline-flex items-center gap-2">
-      <img src="/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180" />
+      <img src="/click-collect-ecom/assets/images/icons/chevron-right.svg" alt="Retour" class="h-4 w-4 rotate-180" />
       <span class="hidden md:inline">Retour</span>
     </a>
   </nav>
@@ -945,8 +945,8 @@
                 <button id="toggle-current-password" type="button"
                     class="absolute right-3 top-1/2 -translate-y-1/2 text-description hover:text-text cursor-pointer"
                     aria-label="Afficher/masquer le mot de passe actuel">
-                    <img src="/assets/images/icons/eye-closed.svg" alt="Afficher le mot de passe" class="eye-icon">
-                    <img src="/assets/images/icons/eye-open.svg" alt="Masquer le mot de passe" class="eye-icon hidden">
+                    <img src="/click-collect-ecom/assets/images/icons/eye-closed.svg" alt="Afficher le mot de passe" class="eye-icon">
+                    <img src="/click-collect-ecom/assets/images/icons/eye-open.svg" alt="Masquer le mot de passe" class="eye-icon hidden">
                 </button>
             </section>
 
@@ -959,30 +959,30 @@
                 <button id="toggle-new-password" type="button"
                     class="absolute right-3 top-1/2 -translate-y-1/2 text-description hover:text-text cursor-pointer"
                     aria-label="Afficher/masquer le nouveau mot de passe">
-                    <img src="/assets/images/icons/eye-closed.svg" alt="Afficher le mot de passe" class="eye-icon">
-                    <img src="/assets/images/icons/eye-open.svg" alt="Masquer le mot de passe" class="eye-icon hidden">
+                    <img src="/click-collect-ecom/assets/images/icons/eye-closed.svg" alt="Afficher le mot de passe" class="eye-icon">
+                    <img src="/click-collect-ecom/assets/images/icons/eye-open.svg" alt="Masquer le mot de passe" class="eye-icon hidden">
                 </button>
             </section>
 
             <ul class="mt-3 grid grid-cols-1 gap-2 text-xs md:grid-cols-2">
                 <li id="rule-length" class="inline-flex items-center gap-2 password-rule-invalid">
-                    <img src="/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
+                    <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
                     12&nbsp;caractères minimum
                 </li>
                 <li id="rule-uppercase" class="inline-flex items-center gap-2 password-rule-invalid">
-                    <img src="/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
+                    <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
                     Un caractère en majuscule
                 </li>
                 <li id="rule-lowercase" class="inline-flex items-center gap-2 password-rule-invalid">
-                    <img src="/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
+                    <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
                     Un caractère en minuscule
                 </li>
                 <li id="rule-special" class="inline-flex items-center gap-2 password-rule-invalid">
-                    <img src="/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
+                    <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
                     Un caractère spécial
                 </li>
                 <li id="rule-number" class="inline-flex items-center gap-2 md:col-span-2 password-rule-invalid">
-                    <img src="/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
+                    <img src="/click-collect-ecom/assets/images/icons/check-circle.svg" alt="" class="h-4 w-4 flex-shrink-0" />
                     Un chiffre
                 </li>
             </ul>
