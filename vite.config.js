@@ -1,5 +1,7 @@
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
+import fs from 'fs';
+import path from 'path';
 
 export default defineConfig({
   build: {
@@ -24,6 +26,14 @@ export default defineConfig({
           replaced = replaced.replace(/href=(\\?["'])\/(\1)/g, 'href=$1/click-collect-ecom/$1');
 
           return replaced;
+        }
+      },
+      closeBundle() {
+        try {
+          fs.copyFileSync('dist/index.html', 'dist/404.html');
+          console.log('[VITE PLUGIN] Copied index.html to 404.html for GitHub Pages SPA support');
+        } catch (e) {
+          console.error('[VITE PLUGIN] Failed to copy 404.html', e);
         }
       }
     }

@@ -4,7 +4,7 @@
  */
 
 
-let API_URL = "https://wwW.w-gader.mmi-limoges.fr/api-ecom/"; // URL de base de l'API
+let API_URL = "https://www.w-gader.mmi-limoges.fr/api-ecom/"; // URL de base de l'API
 
 
 /**
@@ -22,21 +22,21 @@ let API_URL = "https://wwW.w-gader.mmi-limoges.fr/api-ecom/"; // URL de base de 
  *  ATTENTION : La fonction est asynchrone, donc quand on l'appelle il ne faut pas oublier "await".
  *  Exemple : let data = await getRequest(http://.../api/products);
  */
-let getRequest = async function(uri){
+let getRequest = async function (uri) {
 
     let options = {
         method: "GET",
         credentials: 'include'
     };
 
-    try{
-        var response = await fetch(API_URL+uri, options); // exécution (asynchrone) de la requête et attente de la réponse
+    try {
+        var response = await fetch(API_URL + uri, options); // exécution (asynchrone) de la requête et attente de la réponse
     }
-    catch(e){
-        console.error("Echec de la requête : "+e); // affichage de l'erreur dans la console
+    catch (e) {
+        console.error("Echec de la requête : " + e); // affichage de l'erreur dans la console
         return false;
     }
-    if (response.status != 200){
+    if (response.status != 200) {
         console.error("Erreur de requête : " + response.status); // affichage de l'erreur dans la console
         return false; // si le serveur a renvoyé une erreur, on retourne false
     }  // si le serveur a renvoyé une erreur, on retourne false
@@ -57,11 +57,11 @@ let getRequest = async function(uri){
  *  La fonction retourne les données après conversion en objet Javascript (ou false si la requête a échoué)
  */
 
-let postRequest = async function(uri, data){ 
+let postRequest = async function (uri, data) {
     let options = {
         credentials: 'include',
         method: 'POST',
-        header : {
+        header: {
             'Content-Type': 'multipart/form-data'
         },
         body: data
@@ -69,50 +69,50 @@ let postRequest = async function(uri, data){
 
 
 
-    try{
-        var response = await fetch(API_URL+uri, options);
+    try {
+        var response = await fetch(API_URL + uri, options);
     }
-    catch(e){
+    catch (e) {
         console.error("Echec de la requête : " + e);
         return false;
     }
-    
+
     let $obj = await response.json();
-    
+
     // Si erreur (status 400, 401, 500, etc.), retourner l'objet avec l'erreur
-    if (response.status != 200){
+    if (response.status != 200) {
         console.error("Erreur de requête : " + response.status, $obj);
         return $obj; // Retourne l'objet avec {error: "message"}
     }
-    
+
     return $obj;
 }
 
-let jsonPostRequest = async function(uri, data){ 
+let jsonPostRequest = async function (uri, data) {
     let options = {
         method: 'POST',
-        header : {
+        header: {
             'Content-Type': 'application/json'
         },
         body: data
     }
 
-    try{
-        var response = await fetch(API_URL+uri, options);
+    try {
+        var response = await fetch(API_URL + uri, options);
     }
-    catch(e){
+    catch (e) {
         console.error("Echec de la requête : " + e);
         return false;
     }
-    
+
     let $obj = await response.json();
-    
+
     // Si erreur (status 400, 401, 500, etc.), retourner l'objet avec l'erreur
-    if (response.status != 200){
+    if (response.status != 200) {
         console.error("Erreur de requête : " + response.status, $obj);
         return $obj; // Retourne l'objet avec {error: "message"}
     }
-    
+
     return $obj;
 }
 
@@ -126,20 +126,20 @@ let jsonPostRequest = async function(uri, data){
  * 
  *  La fonction retourne true ou false selon le succès de l'opération
  */
-let deleteRequest = async function(uri){
+let deleteRequest = async function (uri) {
     let options = {
         method: "DELETE",
         credentials: 'include'
     };
 
-    try{
-        var response = await fetch(API_URL+uri, options);
+    try {
+        var response = await fetch(API_URL + uri, options);
     }
-    catch(e){
-        console.error("Echec de la requête : "+e);
+    catch (e) {
+        console.error("Echec de la requête : " + e);
         return false;
     }
-    if (response.status != 200){
+    if (response.status != 200) {
         console.error("Erreur de requête : " + response.status);
         return false;
     }
@@ -159,7 +159,7 @@ let deleteRequest = async function(uri){
  * 
  *  La fonction retourne l'objet de réponse ou false si échec
  */
-let patchRequest = async function(uri, data){
+let patchRequest = async function (uri, data) {
     let options = {
         method: 'PATCH',
         credentials: 'include',
@@ -169,24 +169,24 @@ let patchRequest = async function(uri, data){
         body: JSON.stringify(data)
     };
 
-    try{
-        var response = await fetch(API_URL+uri, options);
+    try {
+        var response = await fetch(API_URL + uri, options);
     }
-    catch(e){
+    catch (e) {
         console.error("Echec de la requête : " + e);
         return false;
     }
-    
+
     let $obj = await response.json();
-    
+
     // Si erreur (status 400, 401, 500, etc.), retourner l'objet avec l'erreur
-    if (response.status != 200){
+    if (response.status != 200) {
         console.error("Erreur de requête : " + response.status, $obj);
         return $obj; // Retourne l'objet avec {error: "message"}
     }
-    
+
     return $obj;
 }
 
 
-export {getRequest, postRequest, deleteRequest, jsonPostRequest, patchRequest }
+export { getRequest, postRequest, deleteRequest, jsonPostRequest, patchRequest }

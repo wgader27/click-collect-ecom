@@ -11,24 +11,24 @@ C.handleFormSubmit = async function (e) {
 
   const form = e.target;
   const errorDiv = form.querySelector("#error-message");
-  
+
   if (!errorDiv) {
     return;
   }
-  
+
   errorDiv.classList.add("hidden");
   errorDiv.textContent = "";
-  
+
   let formData = new FormData(form);
   const data = {
     email: formData.get('email'),
     password: formData.get('password')
   };
-  
+
   const result = await AuthData.login(data);
-  
+
   if (result && result.success) {
-    window.location.href = "/";
+    window.router.navigate("/");
   } else if (result && result.error) {
     errorDiv.textContent = result.error;
     errorDiv.classList.remove("hidden");
@@ -38,12 +38,12 @@ C.handleFormSubmit = async function (e) {
   }
 };
 
-C.togglePassword = function(e) {
+C.togglePassword = function (e) {
   const button = e.currentTarget;
   const passwordInput = button.closest('.relative').querySelector('input');
   const eyeClosed = button.querySelector('#eye-closed');
   const eyeOpen = button.querySelector('#eye-open');
-  
+
   if (passwordInput.type === 'password') {
     passwordInput.type = 'text';
     eyeClosed.classList.add('hidden');
@@ -57,10 +57,10 @@ C.togglePassword = function(e) {
 
 let V = {};
 
-V.attachEvents = function(page) {
+V.attachEvents = function (page) {
   const form = page.querySelector('form');
   const toggleButton = page.querySelector('#toggle-password');
-  
+
   if (form) {
     form.addEventListener('submit', C.handleFormSubmit);
   }

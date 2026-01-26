@@ -5,18 +5,18 @@ import template from "./template.html?raw";
 
 let C = {};
 
-C.handleFormSubmit = async function(e) {
+C.handleFormSubmit = async function (e) {
   e.preventDefault();
   e.stopPropagation();
 
   const form = e.target;
   const errorDiv = form.querySelector('#error-message');
-  
+
   errorDiv.classList.add('hidden');
   errorDiv.textContent = '';
-  
+
   const password = form.password.value;
-  
+
   // Validation mot de passe
   if (password.length < 12) {
     errorDiv.textContent = 'Le mot de passe doit contenir au moins 12 caractères';
@@ -43,7 +43,7 @@ C.handleFormSubmit = async function(e) {
     errorDiv.classList.remove('hidden');
     return;
   }
-  
+
   let formData = new FormData(form);
   const data = {
     firstname: formData.get('firstname'),
@@ -54,9 +54,9 @@ C.handleFormSubmit = async function(e) {
   };
 
   const result = await AuthData.signup(data);
-  
+
   if (result && result.id) {
-    window.location.href = '/signin';
+    window.router.navigate('/signin');
   } else if (result && result.error) {
     errorDiv.textContent = result.error;
     errorDiv.classList.remove('hidden');
@@ -66,16 +66,16 @@ C.handleFormSubmit = async function(e) {
   }
 };
 
-C.handlePasswordInput = function(e) {
+C.handlePasswordInput = function (e) {
   const password = e.target.value;
   const form = e.target.closest('form');
-  
+
   const length = form.querySelector('#rule-length');
   const uppercase = form.querySelector('#rule-uppercase');
   const lowercase = form.querySelector('#rule-lowercase');
   const number = form.querySelector('#rule-number');
   const special = form.querySelector('#rule-special');
-  
+
   // Longueur
   if (password.length >= 12) {
     length.classList.add('password-rule-valid');
@@ -84,7 +84,7 @@ C.handlePasswordInput = function(e) {
     length.classList.remove('password-rule-valid');
     length.classList.add('password-rule-invalid');
   }
-  
+
   // Majuscule
   if (/[A-Z]/.test(password)) {
     uppercase.classList.add('password-rule-valid');
@@ -93,7 +93,7 @@ C.handlePasswordInput = function(e) {
     uppercase.classList.remove('password-rule-valid');
     uppercase.classList.add('password-rule-invalid');
   }
-  
+
   // Minuscule
   if (/[a-z]/.test(password)) {
     lowercase.classList.add('password-rule-valid');
@@ -102,7 +102,7 @@ C.handlePasswordInput = function(e) {
     lowercase.classList.remove('password-rule-valid');
     lowercase.classList.add('password-rule-invalid');
   }
-  
+
   // Chiffre
   if (/[0-9]/.test(password)) {
     number.classList.add('password-rule-valid');
@@ -111,7 +111,7 @@ C.handlePasswordInput = function(e) {
     number.classList.remove('password-rule-valid');
     number.classList.add('password-rule-invalid');
   }
-  
+
   // Spécial
   if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
     special.classList.add('password-rule-valid');
@@ -122,12 +122,12 @@ C.handlePasswordInput = function(e) {
   }
 };
 
-C.togglePassword = function(e) {
+C.togglePassword = function (e) {
   const button = e.currentTarget;
   const passwordInput = button.closest('.relative').querySelector('input');
   const eyeClosed = button.querySelector('#eye-closed');
   const eyeOpen = button.querySelector('#eye-open');
-  
+
   if (passwordInput.type === 'password') {
     passwordInput.type = 'text';
     eyeClosed.classList.add('hidden');
@@ -141,11 +141,11 @@ C.togglePassword = function(e) {
 
 let V = {};
 
-V.attachEvents = function(page) {
+V.attachEvents = function (page) {
   const form = page.querySelector('form');
   const passwordInput = page.querySelector('#sn-pass');
   const toggleButton = page.querySelector('#toggle-password');
-  
+
   if (form) {
     form.addEventListener('submit', C.handleFormSubmit);
   }
