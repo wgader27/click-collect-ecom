@@ -9,14 +9,14 @@ let HeaderView = {
 
   dom: function () {
     let fragment = htmlToFragment(template);
-    
+
     // Menu burger
     const btn = fragment.querySelector('#navBtn');
     const drawer = fragment.querySelector('#drawer');
     const backdrop = fragment.querySelector('#backdrop');
     const iconOpen = fragment.querySelector('#iconOpen');
     const iconClose = fragment.querySelector('#iconClose');
-    
+
     if (btn && drawer && backdrop) {
       btn.onclick = () => {
         drawer.classList.toggle('hidden');
@@ -29,11 +29,11 @@ let HeaderView = {
         iconClose.classList.add('hidden');
       };
     }
-    
+
     const path = window.location.pathname;
     const links = fragment.querySelectorAll('a[data-link]');
     links.forEach(link => link.classList.remove('active'));
-    
+
     if (path === '/products') {
       fragment.querySelector('a[href="/products"]').classList.add('active');
     } else if (path.startsWith('/category/1')) {
@@ -43,20 +43,32 @@ let HeaderView = {
     } else if (path.startsWith('/category/3')) {
       fragment.querySelector('a[href="/category/3"]').classList.add('active');
     }
-    
+
+    // Auth state check for Profile icon
+    const profileLink = fragment.querySelector('a[href="/my-account/dashboard"]');
+    if (profileLink) {
+      const isAuth = window.router && window.router.isAuthenticated;
+      if (!isAuth) {
+        // If not authenticated, link to signin
+        profileLink.setAttribute('href', '/signin');
+        // Optional: Change icon to indicate "Login" if you have one, or keep profile icon
+        // For clarity, let's keep the icon but change the destination
+      }
+    }
+
     // Mettre à jour le badge panier
     HeaderView.updateCartBadge(fragment);
-    
+
     return fragment;
   },
-  
-  updateCartBadge: function(fragment = document) {
+
+  updateCartBadge: function (fragment = document) {
     const badge = fragment.querySelector('#cart-badge');
     if (!badge) return;
-    
+
     const count = CartData.getItemCount();
     badge.textContent = count;
-    
+
     if (count > 0) {
       badge.classList.remove('hidden');
       badge.classList.add('flex');
