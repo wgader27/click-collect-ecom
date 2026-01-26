@@ -8,7 +8,7 @@ let DetailView = {
 
   dom: function (data) {
     let fragment = htmlToFragment(DetailView.html(data));
-    
+
     const main = fragment.querySelector('#p-main');
     const thumbsContainer = fragment.querySelector('#p-thumbs');
     const dotsContainer = fragment.querySelector('#p-dots');
@@ -20,8 +20,10 @@ let DetailView = {
       images = [data.image];
     }
 
+    const baseUrl = import.meta.env.BASE_URL;
+
     if (main && data && data.id) {
-      main.src = '/assets/images/products/' + data.id + '/' + images[0];
+      main.src = `${baseUrl}assets/images/products/${data.id}/${images[0]}`;
       main.alt = data.name || '';
     }
 
@@ -33,18 +35,18 @@ let DetailView = {
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.style = 'border:none; background:none; padding:0; margin:0;';
-        btn.setAttribute('data-src', '/assets/images/products/' + data.id + '/' + file);
+        btn.setAttribute('data-src', `${baseUrl}assets/images/products/${data.id}/${file}`);
         btn.className = (i === 0) ? 'bullets' : 'bullets-grey';
         var imgEl = document.createElement('img');
-        imgEl.src = '/assets/images/products/' + data.id + '/' + file;
+        imgEl.src = `${baseUrl}assets/images/products/${data.id}/${file}`;
         imgEl.alt = data.name || 'Image produit';
         imgEl.style = 'width:70%; aspect-ratio:4/5; object-fit:cover; cursor: pointer;';
         btn.appendChild(imgEl);
 
-        
+
         // fonction locale juste pour ce bout 
-        (function(index, button){
-          button.addEventListener('click', function(){
+        (function (index, button) {
+          button.addEventListener('click', function () {
             if (main) main.src = button.getAttribute('data-src');
             var all = thumbsContainer.querySelectorAll('button');
             for (var k = 0; k < all.length; k++) {
@@ -77,9 +79,10 @@ let DetailView = {
         dot.type = 'button';
         dot.className = 'h-2 w-2 rounded-full bg-black';
         dot.style.opacity = (j === 0) ? '1' : '.3';
-        (function(idx){
-          dot.addEventListener('click', function(){
-            if (main) main.src = '/assets/images/products/' + data.id + '/' + images[idx];
+        (function (idx) {
+          dot.addEventListener('click', function () {
+            const baseUrl = import.meta.env.BASE_URL;
+            if (main) main.src = `${baseUrl}assets/images/products/${data.id}/${images[idx]}`;
             // sync miniatures
             if (thumbsContainer) {
               var all = thumbsContainer.querySelectorAll('button');
@@ -101,7 +104,7 @@ let DetailView = {
       }
     }
 
-    
+
     return fragment;
   }
 };
