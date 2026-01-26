@@ -10,11 +10,18 @@ export default defineConfig({
     {
       name: 'html-transform',
       transform(code, id) {
-        if (id.includes('.html')) { // Matches .html and .html?raw
-          // Replace /assets/ with /click-collect-ecom/assets/ during build
-          return code.replace(/src="\/assets\//g, 'src="/click-collect-ecom/assets/')
-            .replace(/href="\/assets\//g, 'href="/click-collect-ecom/assets/')
-            .replace(/href="\/"/g, 'href="/click-collect-ecom/"'); // Fix logo link too
+        if (id.includes('.html')) {
+          console.log('[HTML-TRANSFORM] Processing:', id);
+
+          let replaced = code;
+          replaced = replaced.replace(/src=["']\/assets\/([^"']+)["']/g, 'src="/click-collect-ecom/assets/$1"');
+          replaced = replaced.replace(/href=["']\/assets\/([^"']+)["']/g, 'href="/click-collect-ecom/assets/$1"');
+          replaced = replaced.replace(/href=["']\/["']/g, 'href="/click-collect-ecom/"');
+
+          if (code !== replaced) {
+            console.log('[HTML-TRANSFORM] Modified:', id);
+          }
+          return replaced;
         }
       }
     }
