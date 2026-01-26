@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
-import fs from 'fs';
 
 export default defineConfig({
   build: {
@@ -13,21 +12,17 @@ export default defineConfig({
       enforce: 'pre',
       transform(code, id) {
         if (id.includes('.html')) {
-          try {
-            fs.appendFileSync('build-log.txt', `[MATCHED] ${id}\n`);
-            // fs.appendFileSync('build-log.txt', `[CODE] ${code.substring(0, 50)}\n`); 
-          } catch (e) { }
-
           let replaced = code;
-          replaced = replaced.replace(/src=["']\/assets\/([^"']+)["']/g, 'src="/click-collect-ecom/assets/$1"');
-          replaced = replaced.replace(/href=["']\/assets\/([^"']+)["']/g, 'href="/click-collect-ecom/assets/$1"');
-          replaced = replaced.replace(/href=["']\/["']/g, 'href="/click-collect-ecom/"');
+          // Regex that matches optional backslash before quote
+          // Handles src="/assets/ and src=\"/assets/ (escaped in JS strings)
+          replaced = replaced.replace(/src=(\\?["'])\/assets\//g, 'src=$1/click-collect-ecom/assets/');
+          replaced = replaced.replace(/href=(\\?["'])\/assets\//g, 'href=$1/click-collect-ecom/assets/');
 
-          if (code !== replaced) {
-            try { fs.appendFileSync('build-log.txt', `[MODIFIED] ${id}\n`); } catch (e) { }
-          } else {
-            try { fs.appendFileSync('build-log.txt', `[NO CHANGE] ${id}\n`); } catch (e) { }
-          }
+          // Match href="/" or href=\"/\" exactly (for logo)
+          // We use lookahead/lookbehind or just match the closing quote to be sure it's exact
+          // Actually, matching href="/" followed by quote is safest
+          replaced = replaced.replace(/href=(\\?["'])\/(\1)/g, 'href=$1/click-collect-ecom/$1');
+
           return replaced;
         }
       }
