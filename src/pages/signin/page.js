@@ -28,6 +28,7 @@ C.handleFormSubmit = async function (e) {
   const result = await AuthData.login(data);
 
   if (result && result.success) {
+    if (window.router) window.router.setAuth(true); // Sync SPA state
     window.router.navigate("/");
   } else if (result && result.error) {
     errorDiv.textContent = result.error;

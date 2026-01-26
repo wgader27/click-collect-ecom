@@ -56,6 +56,7 @@ C.handleFormSubmit = async function (e) {
   const result = await AuthData.signup(data);
 
   if (result && result.id) {
+    // Signup successful, redirect to signin
     window.router.navigate('/signin');
   } else if (result && result.error) {
     errorDiv.textContent = result.error;
