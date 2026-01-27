@@ -74,7 +74,16 @@ AuthData.logout = async function () {
  */
 AuthData.updateProfile = async function (profileData) {
   try {
-    const response = await patchRequest('auth', profileData);
+    // Add ID to payload if available in cache, just in case API needs it
+    const cachedUser = sessionStorage.getItem('auth_user');
+    let payload = { ...profileData };
+    if (cachedUser) {
+      try {
+        const u = JSON.parse(cachedUser);
+        if (u.id) payload.id = u.id;
+      } catch (e) { }
+    }
+    const response = await patchRequest('auth', payload);
     console.log("Update profile response:", response);
 
     // If successful, update local cache too

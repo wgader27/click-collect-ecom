@@ -163,7 +163,7 @@ let patchRequest = async function (uri, data) {
     let options = {
         method: 'PATCH',
         credentials: 'include',
-        headers: {
+        header: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
