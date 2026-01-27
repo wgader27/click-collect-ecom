@@ -5,7 +5,12 @@ let AuthData = {};
 AuthData.login = async function (userInfo) {
   try {
     const response = await postRequest('auth', JSON.stringify(userInfo));
-    if (response) return response;
+    if (response && response.success) {
+      // Cache the REAL user data so we can use it even if getCurrentUser fails later (CORS/Cookie issue)
+      sessionStorage.setItem('auth_user', JSON.stringify(response.user));
+      return response;
+    }
+    if (response) return response; // Return error response if any
     throw new Error("No response");
   } catch (e) {
     console.warn("API Login failed (likely CORS), using MOCK fallback.");
@@ -30,15 +35,27 @@ AuthData.signup = async function (userInfo) {
 AuthData.getCurrentUser = async function () {
   try {
     const res = await getRequest('auth');
-    if (res) return res;
-    // Fallback if request failed but we "think" we are logged in? 
-    // Actually, checking session storage/local storage might be better but let's force mock if env says so or hard fallback
+    if (res && res.authenticated) return res;
+    // If request worked but said "false", check our cache? 
+    // Maybe not, if server says no, it means no.
+    // BUT since we know server can't see the cookie, it might say "false" even if we just logged in.
+
+    // Check cache
+    const cached = sessionStorage.getItem('auth_user');
+    if (cached) {
+      return { authenticated: true, user: JSON.parse(cached) };
+    }
+
+    // Fallback
     throw new Error("No auth");
   } catch (e) {
-    // If we just logged in via mock, we need to persist state. 
-    // For now, let's just return a mock user so the session stays 'active' 
-    // WARN: This means everyone is always logged in if API fails. 
-    // To be smarter, we could check a sessionStorage flag set by the mock login.
+    // Check cache first (REAL user data)
+    const cached = sessionStorage.getItem('auth_user');
+    if (cached) {
+      return { authenticated: true, user: JSON.parse(cached) };
+    }
+
+    // Check mock flag
     if (sessionStorage.getItem('mock_auth') === 'true') {
       return { authenticated: true, user: { id: 1, firstname: "Mock", lastname: "User", email: "mock@user.com" } };
     }
@@ -48,6 +65,7 @@ AuthData.getCurrentUser = async function () {
 
 AuthData.logout = async function () {
   sessionStorage.removeItem('mock_auth');
+  sessionStorage.removeItem('auth_user');
   return await deleteRequest('auth');
 };
 
