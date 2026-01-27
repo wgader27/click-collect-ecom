@@ -11,10 +11,10 @@ let M = {
 
 let C = {};
 
-C.handleValidate = async function() {
+C.handleValidate = async function () {
     const result = await AuthData.getCurrentUser();
     if (!result || !result.authenticated) {
-        window.location.href = '/signin';
+        window.router.navigate('/signin');
         return;
     }
 
@@ -33,39 +33,39 @@ C.handleValidate = async function() {
     console.log('Réponse complète:', order);
     console.log('order.id:', order ? order.id : 'order est null');
     console.log('Type de order.id:', typeof (order ? order.id : null));
-    
+
     if (order && order.id) {
         localStorage.setItem('lastOrderId', order.id);
         CartData.clear();
-        window.location.href = '/order-confirmation';
+        window.router.navigate('/order-confirmation');
     } else {
         console.error('Pas d\'ID dans la réponse!', order);
         alert('Erreur lors de la validation');
     }
 };
 
-C.init = async function() {
+C.init = async function () {
     M.cart = CartData.getState();
-    
+
     if (M.cart.isEmpty) {
-        window.location.href = '/cart';
+        window.router.navigate('/cart');
         return;
     }
-    
+
     return V.init();
 };
 
 let V = {};
 
-V.init = function() {
+V.init = function () {
     const fragment = htmlToFragment(template);
-    
+
     const summaryContainer = fragment.getElementById('checkout-summary');
     summaryContainer.appendChild(CheckoutSummaryView.dom(M.cart.items));
-    
+
     const validateBtn = fragment.getElementById('validate-order');
     validateBtn.addEventListener('click', C.handleValidate);
-    
+
     return fragment;
 };
 

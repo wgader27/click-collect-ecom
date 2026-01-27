@@ -19,7 +19,7 @@ import { ProfilePage } from "./pages/profile/page.js";
 
 const router = new Router('app', {
   loginPath: '/signin',
-  basePath: import.meta.env.BASE_URL
+  basePath: import.meta.env.BASE_URL || '/click-collect-ecom/'
 });
 
 window.router = router;

@@ -5,8 +5,8 @@ import { DashboardView } from "../../ui/dashboard/index.js";
 
 let V = {};
 
-V.render = function(user) {
-  let html = template.replace('{{name}}', user.firstname);  
+V.render = function (user) {
+  let html = template.replace('{{name}}', user.firstname);
   const frag = htmlToFragment(html);
   // Insérer les cartes du dashboard
   const slot = frag.querySelector('slot[name="dashboard-cards"]');
@@ -19,7 +19,7 @@ V.render = function(user) {
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
       await AuthData.logout();
-      window.location.href = '/signin';
+      window.router.navigate('/signin');
     });
   }
 
@@ -28,11 +28,11 @@ V.render = function(user) {
 
 export async function DashboardPage() {
   const result = await AuthData.getCurrentUser();
-  
+
   if (!result || !result.authenticated) {
-    window.location.href = '/signin';
+    window.router.navigate('/signin');
     return;
   }
-  
+
   return V.render(result.user);
 }
