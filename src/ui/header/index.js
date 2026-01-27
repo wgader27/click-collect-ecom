@@ -44,18 +44,6 @@ let HeaderView = {
       fragment.querySelector('a[href="/category/3"]').classList.add('active');
     }
 
-    // Auth state check for Profile icon
-    const profileLink = fragment.querySelector('a[href="/my-account/dashboard"]');
-    if (profileLink) {
-      const isAuth = window.router && window.router.isAuthenticated;
-      if (!isAuth) {
-        // If not authenticated, link to signin
-        profileLink.setAttribute('href', '/signin');
-        // Optional: Change icon to indicate "Login" if you have one, or keep profile icon
-        // For clarity, let's keep the icon but change the destination
-      }
-    }
-
     // Mettre à jour le badge panier
     HeaderView.updateCartBadge(fragment);
 
