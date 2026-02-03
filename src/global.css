@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "GL Bader Compress";
-  src: url("./assets/font/GL-Bader-Compress-Black.ttf") format("truetype");
+  src: url("/click-collect-ecom/assets/font/GL-Bader-Compress-Black.ttf") format("truetype");
   font-style: normal;
   font-display: swap;
 }
